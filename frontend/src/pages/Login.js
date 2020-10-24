@@ -1,6 +1,6 @@
 import React from 'react'
 
-import {Button, Form} from 'react-bootstrap'
+import {ButtonGroup, Button, Col, Row, Form} from 'react-bootstrap'
 
 export default class Login extends React.Component {
     constructor(props) {
@@ -13,18 +13,30 @@ export default class Login extends React.Component {
                 <Form class="form-signin">
                     <h1 class="h3 mb-3 font-weight-normal">Please sign in</h1>
                     <Form.Group>
-                        <Form.Label>Email address</Form.Label>
-                        <Form.Control type="email" placeholder="Enter email" />
-                        <Form.Text className="text-muted">
-                            We'll never share your email with anyone else.
-                        </Form.Text>
+                        <Row>
+                            <Col sm="1" />
+                            <Form.Label column sm="2">Email Address</Form.Label>
+                            <Col sm="8">
+                                <Form.Control type="email" placeholder="Enter email" />
+                            </Col>
+                            <Col sm="1" />
+                        </Row>
                     </Form.Group>
                     <Form.Group controlId="formBasicPassword">
-                        <Form.Label>Password</Form.Label>
-                        <Form.Control type="password" placeholder="Password" />
+                        <Row>
+                            <Col sm="1" />
+                            <Form.Label column sm="2">Password</Form.Label>
+                            <Col sm="8">
+                                <Form.Control type="password" placeholder="Password" />
+                            </Col>
+                            <Col sm="1" />
+                        </Row>
                     </Form.Group>
-                    <Button variant="primary" type="submit">Sign in</Button>
                 </Form>
+                <ButtonGroup>
+                    <Button variant="primary" type="submit">Sign in</Button>
+                    <Button variant="primary" href="register">Register</Button>
+                </ButtonGroup>
             </React.Fragment>
         )
     }
