@@ -1,5 +1,6 @@
 from flask_restx import Namespace, Resource, reqparse, cors
 from db import User, Vehicle, Request, Offer, db
+from sqlalchemy import func
 
 
 # namespace for user registration/login
@@ -24,7 +25,6 @@ request.add_argument('lot', type=str, required=True, help="parking lot requested
 
 # api for offering a parking spot
 offer = api.parser()
-offer.add_argument('offer_id', type=str, required=True, help="ID of offer")
 offer.add_argument('username', type=str, required=True, help="username of person offering spot")
 offer.add_argument('lot', type=str, required=True, help="parking lot requested")
 offer.add_argument('description', type=str, required=True, help="parking lot description")
@@ -56,6 +56,7 @@ class Register(Resource):
             usr = User(username=username, password=password, confirm=confirm, email=email)
             db.session.add(usr)
             db.session.commit()
+
             return {
                 "result": "Success"
             }
@@ -108,12 +109,11 @@ class Login(Resource):
 class MakeOffer(Resource):
     def post(self):
         args = login.parse_args()
-        offer_id = args['offer_id']
         username = args['username']
         lot = args['lot']
         description = args['description']
         try:
-            off = Offer(offer_id = offer_id, username=username, lot=lot, description=description)
+            off = Offer(username=username, lot=lot, description=description)
             db.session.add(off)
             db.session.commit()
             return {
