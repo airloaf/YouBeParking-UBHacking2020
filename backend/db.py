@@ -32,23 +32,27 @@ class User(db.Model):
 
 
 class Vehicle(db.Model):
-    vehicle_id= db.Column(db.String(100), primary_key=True)
-    license_plate = db.Column(db.String(8), unique=False, nullable=False)
+    vehicle_id = db.Column(db.Integer, primary_key=True)
+    username = db.Column(db.String(12), unique=True, nullable=False)
+    plate = db.Column(db.String(8), unique=False, nullable=False)
     state = db.Column(db.String(25), unique=False, nullable=False)
     make = db.Column(db.String(25), unique=False, nullable=False)
     model = db.Column(db.String(25), unique=False, nullable=False)
+    color = db.Column(db.String(25), unique=False, nullable=False)
 
     def toObject(self):
         return {
             "vehicle_id": self.vehicle_id,
-            "license_plate": self.license_plate,
+            "username": self.username,
+            "plate": self.plate,
             "state": self.state,
             "make": self.make,
-            "model": self.model
+            "model": self.model,
+            "color": self.color
         }
 
     def __repr__(self):
-        return '<VEHICLES: vehicle_id=%r, license_plate=%r , state=%r , make=%r , model=%r>' % (self.vehicle_id,self.license_plate, self.state,self.make,self.model)
+        return '<VEHICLES: username=%r, vehicle_id=%r, plate=%r , state=%r , make=%r , model=%r>, color=%r' % (self.username,self.vehicle_id,self.plate, self.state,self.make,self.model,self.color)
 
 
 

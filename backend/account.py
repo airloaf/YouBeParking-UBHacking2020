@@ -31,12 +31,15 @@ offer.add_argument('description', type=str, required=True, help="parking lot des
 
 # api for adding a vehicle
 vehicle = api.parser()
-vehicle.add_argument('username', type=str, required=True, help="adding username")
+vehicle.add_argument('username', type=str, required=True, help="username")
 vehicle.add_argument('make', type=str, required=True, help="vehicle make")
 vehicle.add_argument('model', type=str, required=True, help="vehicle model")
 vehicle.add_argument('plate', type=str, required=True, help="vehicle plate")
 vehicle.add_argument('state', type=str, required=True, help="state on plate")
 vehicle.add_argument('color', type=str, required=True, help="vehicle color")
+
+
+
 
 
 
@@ -123,7 +126,7 @@ class MakeOffer(Resource):
 
         
 
-@api.route('/add-vehicle')
+@api.route('/vehicle')
 @api.expect(vehicle)
 class addVehicle(Resource):
     def post(self):
@@ -134,17 +137,17 @@ class addVehicle(Resource):
         plate = args['plate']
         state = args['state']
         color = args['color']
-        try:
-            veh = Vehicle(username=username, make=make, model=model, plate=plate, state=state, color=color)
-            db.session.add(veh)
-            db.session.commit()
-            return {
-                "result": "Success"
-            }
-        except:
-            return {
-                "result" : "Error"
-            }, 400
+        # try:
+        veh = Vehicle(username=username, make=make, model=model, plate=plate, state=state, color=color)
+        db.session.add(veh)
+        db.session.commit()
+        return {
+            "result": "Success"
+        }
+        # except:
+        #     return {
+        #         "result" : "Error"
+        #     }, 400
         
         
        
