@@ -1,9 +1,14 @@
 import React from 'react'
 
+import axios from 'axios'
+
+import { connect } from 'react-redux'
+import { loginUser } from '../redux/Actions';
+
 import { ButtonGroup, Button, Col, Row, Form } from 'react-bootstrap'
 import { Formik } from 'formik'
 
-export default class Login extends React.Component {
+class Login extends React.Component {
     constructor(props) {
         super(props);
         this.state = {
@@ -26,11 +31,17 @@ export default class Login extends React.Component {
     }
 
     onSubmit(values, { setSubmitting }) {
-        console.log(JSON.stringify(values, null, 2));
-        setTimeout(() => {
-            alert(JSON.stringify(values, null, 2));
-            setSubmitting(false);
-        }, 400);
+        axios.post('/users/login', {
+            username: values.username,
+            password: values.password
+        })
+        .then((res)=>{
+            console.log("logging ing");
+            this.props.loginUser(values.username)
+        })
+        .catch((err)=>{
+            console.log(err);
+        })
     }
 
     render() {
@@ -87,5 +98,14 @@ export default class Login extends React.Component {
             </React.Fragment>
         )
     }
-
 }
+
+const mapStateToProps = (state) => {
+    return {
+        user: state.user
+    }
+}
+
+const mapDispatchToProps = {loginUser}
+
+export default connect(mapStateToProps, mapDispatchToProps)(Login)

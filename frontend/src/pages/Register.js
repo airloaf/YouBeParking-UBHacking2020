@@ -1,9 +1,14 @@
 import React from 'react'
 
+import axios from 'axios'
+
+import { connect } from 'react-redux'
+import { loginUser } from '../redux/Actions';
+
 import { ButtonGroup, Button, Col, Row, Form } from 'react-bootstrap'
 import { Formik } from 'formik'
 
-export default class Register extends React.Component {
+class Register extends React.Component {
     constructor(props) {
         super(props);
         this.state = {
@@ -39,10 +44,18 @@ export default class Register extends React.Component {
 
     onSubmit(values, { setSubmitting }) {
         console.log(JSON.stringify(values, null, 2));
-        setTimeout(() => {
-            alert(JSON.stringify(values, null, 2));
-            setSubmitting(false);
-        }, 400);
+        axios.post('/users/register', {
+            email: values.email,
+            username: values.username,
+            password: values.password,
+            confirm: values.confirmPass
+        })
+        .then((res)=>{
+            console.log(res)
+        })
+        .catch((err)=>{
+            console.log(err);
+        })
     }
 
     render() {
@@ -127,3 +140,13 @@ export default class Register extends React.Component {
     }
 
 }
+
+const mapStateToProps = (state) => {
+    return {
+        user: state.user
+    }
+}
+
+const mapDispatchToProps = {loginUser}
+
+export default connect(mapStateToProps, mapDispatchToProps)(Register)

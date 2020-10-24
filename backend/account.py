@@ -88,8 +88,9 @@ class MakeRequest(Resource):
 @api.route('/login')
 @api.expect(login)
 class Login(Resource):
-    def get(self):
+    def post(self):
         args = login.parse_args()
+        print(args)
         username = args['username']
         password = args['password']
         user = User.query.filter_by(username=username).first()
