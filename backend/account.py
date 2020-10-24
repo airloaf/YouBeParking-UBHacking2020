@@ -1,7 +1,11 @@
 from flask_restx import Namespace, Resource, reqparse, cors
 from db import User, Vehicle, Request, Offer, db
 from sqlalchemy import func
+from flask_bcrypt import Bcrypt
 
+bcrypt = Bcrypt()
+def init_bcrypt(app):
+    bcrypt = Bcrypt(app)
 
 # namespace for user registration/login
 api = Namespace('users', description='Information for user creation/authentication', decorators=[cors.crossdomain(origin="*")])
@@ -60,7 +64,7 @@ class Register(Resource):
         confirm = args['confirm']
         email = args['email']
         try:
-            usr = User(username=username, password=password, confirm=confirm, email=email)
+            usr = User(username=username, password=(bcrypt.generate_password_hash(password)), confirm=(bcrypt.generate_password_hash(confirm)), email=email)
             db.session.add(usr)
             db.session.commit()
             return {
@@ -100,14 +104,14 @@ class Login(Resource):
         username = args['username']
         password = args['password']
         user = User.query.filter_by(username=username).first()
-        if user.password == password:
+        if (bcrypt.check_password_hash(user.password, password)):
              return {
             "result": "Success"
-        }
+            }
         else:
             return {
             "result" : "Error"
-        }, 400
+            }, 400
 
 
 
