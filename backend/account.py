@@ -52,8 +52,6 @@ alloffers.add_argument('description', type=str, required=True, help="parking lot
 
 
 
-
-
 @api.route('/register')
 @api.expect(register)
 class Register(Resource):
@@ -82,35 +80,39 @@ class Register(Resource):
 class MakeRequest(Resource):
     def get(self):
         args = request.parse_args()
-        username =args['username']
         offer_id = args['offer_id']
         offer = Offer.query.filter_by(offer_id=offer_id).first()
         if offer.offer_id == offer_id:
              return {
-            "result": "Success"
-        }
+                "result": "Success"
+            }
         else:
             return {
-            "result" : "Error"
-        }, 400
+                "result" : "Error"
+            }, 400
 
 
 
 @api.route('/login')
 @api.expect(login)
 class Login(Resource):
-    def get(self):
+    def post(self):
         args = login.parse_args()
         username = args['username']
         password = args['password']
         user = User.query.filter_by(username=username).first()
-        if (bcrypt.check_password_hash(user.password, password)):
-             return {
-            "result": "Success"
-            }
-        else:
+        try:
+            if (bcrypt.check_password_hash(user.password, password)):
+                return {
+                    "result": "Success"
+                }
+            else:
+                return {
+                    "result" : "Error"
+                }, 400
+        except:
             return {
-            "result" : "Error"
+                "result": "Error"
             }, 400
 
 
@@ -134,10 +136,8 @@ class MakeOffer(Resource):
             return {
                 "result" : "Error"
             }, 400
-@api.route('/vehicle')
-@api.expect(vehicle)
 
- 
+
 
 @api.route('/vehicle')
 @api.expect(vehicle)
@@ -173,11 +173,11 @@ class AllOffers(Resource):
         if results != None:
             return {
                 "offers": results
-        }
+            }
         else:
             return {
                 "result": 'Error'
-        }, 400
+            }, 400
 
         
        
