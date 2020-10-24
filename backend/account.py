@@ -108,7 +108,7 @@ class Login(Resource):
 @api.expect(offer)
 class MakeOffer(Resource):
     def post(self):
-        args = login.parse_args()
+        args = offer.parse_args()
         username = args['username']
         lot = args['lot']
         description = args['description']
