@@ -1,10 +1,16 @@
 import React from 'react'
 
-import {ButtonGroup, Button, Col, Row, Form} from 'react-bootstrap'
+import {Button, Col, Row, Form} from 'react-bootstrap'
 
 export default class Register extends React.Component {
     constructor(props) {
         super(props);
+        this.state = {
+            email: null,
+            username: null,
+            password: null,
+            confirmPassword: null,
+        };
     }
 
     render() {
