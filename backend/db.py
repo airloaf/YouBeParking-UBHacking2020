@@ -11,8 +11,8 @@ def init_db(app):
 class User(db.Model):
     id = db.Column(db.Integer, primary_key=True)
     username = db.Column(db.String(12), unique=True, nullable=False)
-    password = db.Column(db.String(20), unique=False, nullable=False)'
-    confirm = db.Column(db.String(20), unique=False, nullable=False)'
+    password = db.Column(db.String(20), unique=False, nullable=False)
+    confirm = db.Column(db.String(20), unique=False, nullable=False)
     email = db.Column(db.String(25), unique=True, nullable=False)
     vehicle_id = db.Column(db.String(100), unique=True, nullable=True)
 
@@ -53,8 +53,8 @@ class Vehicle(db.Model):
 
 
 class Request(db.Model):
-    request_id = db.Column(db.Integer, primary=True)
-    username = db.Column(db.String(100), primary=False)
+    request_id = db.Column(db.Integer, primary_key=True)
+    username = db.Column(db.String(100))
     lot = db.Column(db.String(30), unique=False, nullable=False)
 
     def toObject(self):
@@ -65,13 +65,13 @@ class Request(db.Model):
         }
 
     def __repr__(self):
-        return '<USERS: request_id=%r, username=%r, lot=%r>' % (self.request_id)self.username,self.lot)
+        return '<USERS: request_id=%r, username=%r, lot=%r>' % (self.request_id, self.username,self.lot)
 
 class Offer(db.Model):
-    offer_id = db.Column(db.Integer, primary=True)
-    username = db.Column(db.String(100), primary=False)
+    offer_id = db.Column(db.Integer, primary_key=True)
+    username = db.Column(db.String(100))
     lot = db.Column(db.String(30), unique=False, nullable=False)
-    description = db.Column(db.string(280), unique=false, nullable=False)
+    description = db.Column(db.String(280), unique=False, nullable=False)
     def toObject(self):
         return {
             "offer_id": self.offer_id,
