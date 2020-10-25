@@ -1,5 +1,5 @@
 import React from 'react'
-import { Button } from 'react-bootstrap'
+import { Button, Row, Col } from 'react-bootstrap'
 
 export default class Home extends React.Component {
     constructor(props) {
@@ -9,8 +9,32 @@ export default class Home extends React.Component {
     render() {
         return (
             <React.Fragment>
-                <div><Button href="/request" variant="outline-primary" block><h1>Request a Spot</h1></Button></div>
-                <div><Button href="/offer" variant="outline-success" block><h1>Offer a Spot</h1></Button></div>
+                <br />
+                <Row>
+                    <Col sm={2} />
+                    <Col>
+                        <Button href="/request" variant="primary" block 
+                            style = {{
+                                padding: '100px'
+                            }}
+                        ><h1>Request a Spot</h1></Button>
+                    </Col>
+                    <Col sm={2} />
+                </Row>
+
+                <br />
+
+                <Row>
+                    <Col sm={2} />
+                    <Col>
+                        <Button href="/offer" variant="success" block
+                            style = {{
+                                padding: '100px'
+                            }}
+                        ><h1>Offer a Spot</h1></Button>
+                    </Col>
+                    <Col sm={2} />
+                </Row>
             </React.Fragment>
         )
     }
