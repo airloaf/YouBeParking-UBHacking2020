@@ -6,3 +6,7 @@ export const loginUser = (username) =>({
         username
     }
 })
+
+export const logoutUser = () =>({
+    type: Actions.USER_LOGOUT
+})
