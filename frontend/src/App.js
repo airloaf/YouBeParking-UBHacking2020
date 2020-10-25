@@ -5,17 +5,13 @@ import Home from './pages/Home';
 import Navigation from './components/Navigation';
 import Register from './pages/Register';
 import Login from './pages/Login';
+import Dashboard from './pages/Dashboard';
+import Offer from './pages/Offer';
 import { BrowserRouter as Router, Switch, Route } from "react-router-dom";
 import { connect } from 'react-redux'
 
 import PrivateRoute from './components/PrivateRoute'
 import PublicRoute from './components/PublicRoute'
-
-function Dashboard() {
-  return (
-    <h1>Dashboard</h1>
-  )
-}
 
 class App extends React.Component {
   constructor(props) {
@@ -30,6 +26,7 @@ class App extends React.Component {
 
         <Router>
           <Switch>
+            <PrivateRoute isAuthenticated={isAuthenticated} component={Offer} path="/offer" exact />
             <PrivateRoute isAuthenticated={isAuthenticated} component={Dashboard} path="/dashboard" exact />
             <PublicRoute restricted={true} isAuthenticated={isAuthenticated} component={Home} path="/" exact />
             <PublicRoute restricted={true} isAuthenticated={isAuthenticated} component={Login} path="/login" exact />

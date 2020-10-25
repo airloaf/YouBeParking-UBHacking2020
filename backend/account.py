@@ -1,7 +1,11 @@
 from flask_restx import Namespace, Resource, reqparse, cors
 from db import User, Vehicle, Request, Offer, db
 from sqlalchemy import func
+from flask_bcrypt import Bcrypt
 
+bcrypt = Bcrypt()
+def init_bcrypt(app):
+    bcrypt = Bcrypt(app)
 
 # namespace for user registration/login
 api = Namespace('users', description='Information for user creation/authentication', decorators=[cors.crossdomain(origin="*")])
@@ -20,7 +24,8 @@ login.add_argument('password', type=str, required=True, help="login password")
 
 # api for requesting a parking spot
 request = api.parser()
-request.add_argument('username', type=str, required=True, help="username of person requesting spot")
+request.add_argument('offer_id', type=str, required=True, help="offer_id")
+request.add_argument('username', type=str, required=True, help="username")
 request.add_argument('lot', type=str, required=True, help="parking lot requested")
 
 # api for offering a parking spot
@@ -38,7 +43,11 @@ vehicle.add_argument('plate', type=str, required=True, help="vehicle plate")
 vehicle.add_argument('state', type=str, required=True, help="state on plate")
 vehicle.add_argument('color', type=str, required=True, help="vehicle color")
 
-
+# api for offering a parking spot
+alloffers = api.parser()
+alloffers.add_argument('username', type=str, required=True, help="username of person offering spot")
+alloffers.add_argument('lot', type=str, required=True, help="parking lot requested")
+alloffers.add_argument('description', type=str, required=True, help="parking lot description")
 
 
 
@@ -53,10 +62,9 @@ class Register(Resource):
         confirm = args['confirm']
         email = args['email']
         try:
-            usr = User(username=username, password=password, confirm=confirm, email=email)
+            usr = User(username=username, password=(bcrypt.generate_password_hash(password)), confirm=(bcrypt.generate_password_hash(confirm)), email=email)
             db.session.add(usr)
             db.session.commit()
-
             return {
                 "result": "Success"
             }
@@ -76,12 +84,12 @@ class MakeRequest(Resource):
         offer = Offer.query.filter_by(offer_id=offer_id).first()
         if offer.offer_id == offer_id:
              return {
-            "result": "Success"
-        }
+                "result": "Success"
+            }
         else:
             return {
-            "result" : "Error"
-        }, 400
+                "result" : "Error"
+            }, 400
 
 
 
@@ -94,14 +102,19 @@ class Login(Resource):
         username = args['username']
         password = args['password']
         user = User.query.filter_by(username=username).first()
-        if user.password == password:
-             return {
-            "result": "Success"
-        }
-        else:
+        try:
+            if (bcrypt.check_password_hash(user.password, password)):
+                return {
+                    "result": "Success"
+                }
+            else:
+                return {
+                    "result" : "Error"
+                }, 400
+        except:
             return {
-            "result" : "Error"
-        }, 400
+                "result": "Error"
+            }, 400
 
 
 
@@ -125,7 +138,7 @@ class MakeOffer(Resource):
                 "result" : "Error"
             }, 400
 
-        
+
 
 @api.route('/vehicle')
 @api.expect(vehicle)
@@ -138,18 +151,37 @@ class addVehicle(Resource):
         plate = args['plate']
         state = args['state']
         color = args['color']
-        # try:
-        veh = Vehicle(username=username, make=make, model=model, plate=plate, state=state, color=color)
-        db.session.add(veh)
-        db.session.commit()
-        return {
-            "result": "Success"
-        }
-        # except:
-        #     return {
-        #         "result" : "Error"
-        #     }, 400
+        try:
+            veh = Vehicle(username=username, make=make, model=model, plate=plate, state=state, color=color)
+            db.session.add(veh)
+            db.session.commit()
+            return {
+                "result": "Success"
+            }
+        except:
+            return {
+                "result" : "Error"
+            }, 400
         
+@api.route('/alloffers/<int:numItems>', defaults={'offset': 0})
+@api.route('/alloffers/<int:numItems>/<int:offset>')
+class AllOffers(Resource):
+    def get(self, numItems, offset):
+        result = (Offer.query.order_by(Offer.offer_id.desc()).limit(numItems).offset(offset).all())
+        results = []
+        for res in range(len(result)):
+            results.append(result[res].toObject())
+        if results != None:
+            return {
+                "offers": results
+            }
+        else:
+            return {
+                "result": 'Error'
+            }, 400
+
+        
+       
         
        
 
