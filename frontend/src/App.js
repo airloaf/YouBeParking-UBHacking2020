@@ -2,7 +2,7 @@ import './App.css';
 
 import React from 'react';
 import Home from './pages/Home';
-import Navigation from './components/Navigation';
+import Navigation from './components/Navigation/Navigation';
 import Register from './pages/Register';
 import Login from './pages/Login';
 import Dashboard from './pages/Dashboard';

@@ -1,6 +1,9 @@
 import React from 'react'
 import {Navbar, Nav} from "react-bootstrap"
 
+import LoggedIn from "./LoggedIn"
+import LoggedOut from "./LoggedOut"
+
 import { connect } from 'react-redux'
 
 class Navigation extends React.Component {
@@ -16,15 +19,11 @@ class Navigation extends React.Component {
                 <Navbar.Toggle aria-controls="responsive-navbar-nav" />
                 <Navbar.Collapse id="responsive-navbar-nav">
                     <Nav className="mr-auto" />
-                    <Nav>
-                        <Nav.Link href="/login">
-                            {this.props.User.username?
-                                "Logged in as: " + this.props.User.username
-                                :
-                                "Login"
-                            }
-                        </Nav.Link>
-                    </Nav>
+                        {this.props.User.username?
+                            <LoggedIn user={this.props.User} />
+                            :
+                            <LoggedOut />
+                        }
                 </Navbar.Collapse>
             </Navbar>
         )
