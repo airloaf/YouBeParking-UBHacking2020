@@ -1,0 +1,25 @@
+{
+  "files": {
+    "main.css": "/httpsL//trbute.github.io/YouBeParking-UBHacking2020/static/css/main.c0ce4efc.chunk.css",
+    "main.js": "/httpsL//trbute.github.io/YouBeParking-UBHacking2020/static/js/main.d070766e.chunk.js",
+    "main.js.map": "/httpsL//trbute.github.io/YouBeParking-UBHacking2020/static/js/main.d070766e.chunk.js.map",
+    "runtime-main.js": "/httpsL//trbute.github.io/YouBeParking-UBHacking2020/static/js/runtime-main.7f3370ca.js",
+    "runtime-main.js.map": "/httpsL//trbute.github.io/YouBeParking-UBHacking2020/static/js/runtime-main.7f3370ca.js.map",
+    "static/css/2.d2b12490.chunk.css": "/httpsL//trbute.github.io/YouBeParking-UBHacking2020/static/css/2.d2b12490.chunk.css",
+    "static/js/2.7c33fb2b.chunk.js": "/httpsL//trbute.github.io/YouBeParking-UBHacking2020/static/js/2.7c33fb2b.chunk.js",
+    "static/js/2.7c33fb2b.chunk.js.map": "/httpsL//trbute.github.io/YouBeParking-UBHacking2020/static/js/2.7c33fb2b.chunk.js.map",
+    "static/js/3.52e4880f.chunk.js": "/httpsL//trbute.github.io/YouBeParking-UBHacking2020/static/js/3.52e4880f.chunk.js",
+    "static/js/3.52e4880f.chunk.js.map": "/httpsL//trbute.github.io/YouBeParking-UBHacking2020/static/js/3.52e4880f.chunk.js.map",
+    "index.html": "/httpsL//trbute.github.io/YouBeParking-UBHacking2020/index.html",
+    "static/css/2.d2b12490.chunk.css.map": "/httpsL//trbute.github.io/YouBeParking-UBHacking2020/static/css/2.d2b12490.chunk.css.map",
+    "static/css/main.c0ce4efc.chunk.css.map": "/httpsL//trbute.github.io/YouBeParking-UBHacking2020/static/css/main.c0ce4efc.chunk.css.map",
+    "static/js/2.7c33fb2b.chunk.js.LICENSE.txt": "/httpsL//trbute.github.io/YouBeParking-UBHacking2020/static/js/2.7c33fb2b.chunk.js.LICENSE.txt"
+  },
+  "entrypoints": [
+    "static/js/runtime-main.7f3370ca.js",
+    "static/css/2.d2b12490.chunk.css",
+    "static/js/2.7c33fb2b.chunk.js",
+    "static/css/main.c0ce4efc.chunk.css",
+    "static/js/main.d070766e.chunk.js"
+  ]
+}
