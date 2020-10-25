@@ -1,14 +1,34 @@
-import React from 'react'
 import Iframe from 'react-iframe'
-import { Container, Row, Col, Form, Button } from 'react-bootstrap'
-import { ButtonGroup } from 'react-bootstrap'
-import { Formik } from 'formik'
-
+import React from 'react'
+import axios from 'axios'
 import mapDict from '../utils/LotFrames'
 
-export default class Home extends React.Component {
+import { Container, Button, Row, Col, Form } from 'react-bootstrap'
+import { Formik } from 'formik'
+import { compose } from 'recompose'
+import { connect } from 'react-redux'
+import { withRouter } from "react-router-dom";
+
+class Home extends React.Component {
     constructor(props) {
         super(props);
+
+        this.onSubmit = this.onSubmit.bind(this);
+    }
+
+    onSubmit(values, { setSubmitting }) {
+        axios.post('/users/offer', {
+            username: this.props.User.username,
+            lot: values.lot,
+            description: values.description
+        })
+        .then((res)=>{
+            console.log(res)
+            this.props.history.push("/")
+        })
+        .catch((err)=>{
+            console.log(err);
+        })
     }
 
     render() {
@@ -101,10 +121,14 @@ export default class Home extends React.Component {
                                                 rows={5}
                                             />
                                         </Form.Group>
-                                        <div><Button href="/offer" variant="outline-success" block><h1>Offer a Spot</h1></Button></div>
                                     </Col>
                                     <Col sm={1}></Col>
                                 </Form.Row>
+                                <Row>
+                                    <Col sm={1} />
+                                    <Button type="submit" variant="outline-success" block><h1>Offer a Spot</h1></Button>
+                                    <Col sm={1} />
+                                </Row>
                             </Form>
                         )}
                 </Formik>
@@ -112,3 +136,14 @@ export default class Home extends React.Component {
         )
     }
 }
+
+const mapStateToProps = (state) => {
+    return {
+        User: state.User
+    }
+}
+
+export default connect(mapStateToProps, null)
+(
+    compose(withRouter)(Home)
+)
