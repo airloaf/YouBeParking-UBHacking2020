@@ -1,6 +1,8 @@
 from flask import Flask
 from flask_restx import Api, Resource
 from db import db, init_db
+from account import init_bcrypt
+
 
 from account import api as account_api
 
@@ -9,6 +11,7 @@ app = Flask(__name__)
 api = Api()
 api.init_app(app)
 init_db(app)
+init_bcrypt(app)
 #this creates database
 with app.app_context():
     db.create_all()
