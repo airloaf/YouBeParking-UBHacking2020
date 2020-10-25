@@ -6,6 +6,8 @@ import Navigation from './components/Navigation/Navigation';
 import Register from './pages/Register';
 import Login from './pages/Login';
 import Dashboard from './pages/Dashboard';
+import OfferVerify from './pages/OfferVerify';
+import RequestOffer from './pages/RequestOffer';
 import Offer from './pages/Offer';
 import { BrowserRouter as Router, Switch, Route } from "react-router-dom";
 import { connect } from 'react-redux'
@@ -48,6 +50,8 @@ class App extends React.Component {
           <Switch>
             <PrivateRoute isAuthenticated={isAuthenticated} component={Offer} path="/offer" exact />
             <PrivateRoute isAuthenticated={isAuthenticated} component={Dashboard} path="/dashboard" exact />
+            <PrivateRoute isAuthenticated={isAuthenticated} component={OfferVerify} path="/offerverify/:id/" exact />
+            <PrivateRoute isAuthenticated={isAuthenticated} component={RequestOffer} path="/requestoffer" exact />
             <PublicRoute restricted={true} isAuthenticated={isAuthenticated} component={Home} path="/" exact />
             <PublicRoute restricted={true} isAuthenticated={isAuthenticated} component={Login} path="/login" exact />
             <PublicRoute restricted={true} isAuthenticated={isAuthenticated} component={Register} path="/register" exact />
@@ -58,6 +62,7 @@ class App extends React.Component {
     );
   }
 }
+
 
 const mapStateToProps = (state) => {
   return {

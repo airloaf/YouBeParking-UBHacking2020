@@ -13,7 +13,7 @@ export default class Home extends React.Component {
                 <Row>
                     <Col sm={2} />
                     <Col>
-                        <Button href="/request" variant="primary" block 
+                        <Button href="/requestoffer" variant="primary" block 
                             style = {{
                                 padding: '100px'
                             }}

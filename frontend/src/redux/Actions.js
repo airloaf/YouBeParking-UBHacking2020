@@ -10,3 +10,11 @@ export const loginUser = (username) =>({
 export const logoutUser = () =>({
     type: Actions.USER_LOGOUT
 })
+
+
+export const Offer= (offer) =>({
+    type: Actions.USER_OFFER,
+    payload: {
+        offer
+    }
+})
