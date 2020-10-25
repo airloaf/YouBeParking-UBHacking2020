@@ -11,6 +11,8 @@ import { compose } from 'recompose'
 import { ButtonGroup, Button, Col, Row, Form } from 'react-bootstrap'
 import { Formik } from 'formik'
 
+import { toast } from 'react-toastify'
+
 class Register extends React.Component {
     constructor(props) {
         super(props);
@@ -28,7 +30,7 @@ class Register extends React.Component {
     validate(values) {
         const errors = {};
         if (!values.email) {
-            errors.email= 'Required';
+            errors.email = 'Required';
         }
         if (!values.username) {
             errors.username = 'Required';
@@ -39,7 +41,7 @@ class Register extends React.Component {
         if (!values.confirmPass) {
             errors.confirmPass = "Required";
         }
-        if(values.confirmPass != values.password){
+        if (values.confirmPass != values.password) {
             errors.confirmPass = "Passwords do not match!"
         }
         return errors;
@@ -53,12 +55,21 @@ class Register extends React.Component {
             password: values.password,
             confirm: values.confirmPass
         })
-        .then((res)=>{
-            this.props.history.push("/")
-        })
-        .catch((err)=>{
-            console.log(err);
-        })
+            .then((res) => {
+                toast.info('Account Registered', {
+                    position: "bottom-right",
+                    autoClose: 5000,
+                    hideProgressBar: false,
+                    closeOnClick: true,
+                    pauseOnHover: true,
+                    draggable: true,
+                    progress: undefined,
+                });
+                this.props.history.push("/")
+            })
+            .catch((err) => {
+                console.log(err);
+            })
     }
 
     render() {
@@ -150,9 +161,9 @@ const mapStateToProps = (state) => {
     }
 }
 
-const mapDispatchToProps = {loginUser}
+const mapDispatchToProps = { loginUser }
 
 export default connect(mapStateToProps, mapDispatchToProps)
-(
-    compose(withRouter)(Register)
-)
+    (
+        compose(withRouter)(Register)
+    )
