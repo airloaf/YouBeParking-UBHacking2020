@@ -15,7 +15,7 @@ class User(db.Model):
     confirm = db.Column(db.String(20), unique=False, nullable=False)
     email = db.Column(db.String(25), unique=True, nullable=False)
     vehicle_id = db.Column(db.String(100), unique=True, nullable=True)
-
+    credits = db.Column(db.Integer, unique=False, nullable=False)
     
     def toObject(self):
         return {
@@ -24,7 +24,8 @@ class User(db.Model):
             "password": self.password,
             "confirm": self.confirm,
             "email": self.email,
-            "vehicle_id": self.vehicle_id
+            "vehicle_id": self.vehicle_id,
+            "credits": self.credits
         }
 
     def __repr__(self):
