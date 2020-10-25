@@ -5,6 +5,9 @@ import axios from 'axios'
 import { connect } from 'react-redux'
 import { loginUser } from '../redux/Actions';
 
+import { withRouter } from "react-router-dom";
+import { compose } from 'recompose'
+
 import { ButtonGroup, Button, Col, Row, Form } from 'react-bootstrap'
 import { Formik } from 'formik'
 
@@ -51,7 +54,7 @@ class Register extends React.Component {
             confirm: values.confirmPass
         })
         .then((res)=>{
-            console.log(res)
+            this.props.history.push("/")
         })
         .catch((err)=>{
             console.log(err);
@@ -149,4 +152,7 @@ const mapStateToProps = (state) => {
 
 const mapDispatchToProps = {loginUser}
 
-export default connect(mapStateToProps, mapDispatchToProps)(Register)
+export default connect(mapStateToProps, mapDispatchToProps)
+(
+    compose(withRouter)(Register)
+)

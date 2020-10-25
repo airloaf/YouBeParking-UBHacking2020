@@ -12,7 +12,7 @@ class Navigation extends React.Component {
         console.log(this.props.User)
         return (
             <Navbar collapseOnSelect expand="lg" bg="dark" variant="dark">
-                <Navbar.Brand href="/">YouBeHacking</Navbar.Brand>
+                <Navbar.Brand href="/">YouBeParking</Navbar.Brand>
                 <Navbar.Toggle aria-controls="responsive-navbar-nav" />
                 <Navbar.Collapse id="responsive-navbar-nav">
                     <Nav className="mr-auto" />
