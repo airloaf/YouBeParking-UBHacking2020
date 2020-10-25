@@ -8,6 +8,7 @@ import { Formik } from 'formik'
 import { compose } from 'recompose'
 import { connect } from 'react-redux'
 import { withRouter } from "react-router-dom";
+import { toast } from 'react-toastify';
 
 class Home extends React.Component {
     constructor(props) {
@@ -23,13 +24,25 @@ class Home extends React.Component {
             time: "0",
             description: values.description
         })
-        .then((res)=>{
-            console.log(res)
-            this.props.history.push("/")
-        })
-        .catch((err)=>{
-            console.log(err);
-        })
+            .then((res) => {
+                toast.success('Parking spot opened', {
+                    position: "bottom-right",
+                    autoClose: 5000,
+                    hideProgressBar: false,
+                    closeOnClick: true,
+                    pauseOnHover: true,
+                    draggable: true,
+                    progress: undefined,
+                });
+                this.props.history.push("/")
+            })
+            .catch((err) => {
+                console.log(err);
+            })
+    }
+
+    notify() {
+        toast("Parking spot opened");
     }
 
     render() {
@@ -145,6 +158,6 @@ const mapStateToProps = (state) => {
 }
 
 export default connect(mapStateToProps, null)
-(
-    compose(withRouter)(Home)
-)
+    (
+        compose(withRouter)(Home)
+    )
