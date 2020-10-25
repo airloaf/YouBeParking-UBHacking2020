@@ -36,7 +36,6 @@ offer.add_argument('time', type=str, required=True, help="time of departure from
 
 # api for successful offer
 offerSuccess = api.parser()
-offerSuccess.add_argument('username', type=str, required=True, help="username of person offering spot")
 offerSuccess.add_argument('offer_id', type=int, required=True, help="offer_id")
 
 # api for failed offer
