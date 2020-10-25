@@ -3,10 +3,13 @@ from db import User, Vehicle, Request, Offer, db
 from sqlalchemy import func
 from flask_bcrypt import Bcrypt
 
+<<<<<<< Updated upstream
 bcrypt = Bcrypt()
 def init_bcrypt(app):
     bcrypt = Bcrypt(app)
 
+=======
+>>>>>>> Stashed changes
 # namespace for user registration/login
 api = Namespace('users', description='Information for user creation/authentication', decorators=[cors.crossdomain(origin="*")])
 
@@ -46,8 +49,8 @@ vehicle.add_argument('color', type=str, required=True, help="vehicle color")
 # api for offering a parking spot
 alloffers = api.parser()
 alloffers.add_argument('username', type=str, required=True, help="username of person offering spot")
-alloffers.add_argument('lot', type=str, required=True, help="parking lot requested")
-alloffers.add_argument('description', type=str, required=True, help="parking lot description")
+alloffers.add_argument('refresh_token', type=str, required=True, help="fresh token")
+
 
 
 

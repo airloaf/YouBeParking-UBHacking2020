@@ -1,12 +1,15 @@
+import datetime
 from flask import Flask
 from flask_sqlalchemy import SQLAlchemy
 
 db = SQLAlchemy()
-
 def init_db(app):
     app.config['SQLALCHEMY_DATABASE_URI'] = 'sqlite:///test.db'
     app.config['SQLALCHEMY_TRACK_MODIFICATIONS'] = True
     db.init_app(app)
+
+
+
 
 class User(db.Model):
     id = db.Column(db.Integer, primary_key=True)
@@ -16,7 +19,6 @@ class User(db.Model):
     email = db.Column(db.String(25), unique=True, nullable=False)
     vehicle_id = db.Column(db.String(100), unique=True, nullable=True)
 
-    
     def toObject(self):
         return {
             "id": self.id,
@@ -24,8 +26,9 @@ class User(db.Model):
             "password": self.password,
             "confirm": self.confirm,
             "email": self.email,
-            "vehicle_id": self.vehicle_id
+            "vehicle_id": self.vehicle_id,
         }
+
 
     def __repr__(self):
         return '<USERS: username=%r>' % (self.username)
