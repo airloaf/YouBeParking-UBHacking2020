@@ -1,15 +1,12 @@
 import React from 'react'
-
-import { withRouter } from "react-router-dom";
-import { compose } from 'recompose'
-
 import axios from 'axios'
-
-import { connect } from 'react-redux'
-import { loginUser } from '../redux/Actions';
 
 import { ButtonGroup, Button, Col, Row, Form } from 'react-bootstrap'
 import { Formik } from 'formik'
+import { compose } from 'recompose'
+import { connect } from 'react-redux'
+import { loginUser } from '../redux/Actions';
+import { withRouter } from "react-router-dom";
 
 class Login extends React.Component {
     constructor(props) {
