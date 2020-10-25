@@ -166,11 +166,11 @@ class OfferSuccess(Resource):
     def post(self):
         args = offerSuccess.parse_args()
         offer_id = args['offer_id']
-        username = args['username']
+        # username = args['username']
         try:
             off = Offer.query.filter_by(offer_id=offer_id).first()
-            user = User.query.filter_by(username=username).first()
-            user.credits += 1
+            # user = User.query.filter_by(username=username).first()
+            # user.credits += 1
             db.session.delete(off)
             db.session.commit()
             return {
