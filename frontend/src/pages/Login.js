@@ -1,5 +1,8 @@
 import React from 'react'
 
+import { withRouter } from "react-router-dom";
+import { compose } from 'recompose'
+
 import axios from 'axios'
 
 import { connect } from 'react-redux'
@@ -7,8 +10,6 @@ import { loginUser } from '../redux/Actions';
 
 import { ButtonGroup, Button, Col, Row, Form } from 'react-bootstrap'
 import { Formik } from 'formik'
-
-import { createBrowserHistory } from 'history'
 
 class Login extends React.Component {
     constructor(props) {
@@ -39,8 +40,7 @@ class Login extends React.Component {
         })
         .then((res)=>{
             this.props.loginUser(values.username)
-            const history = createBrowserHistory()
-            history.push("/")
+            this.props.history.push("/")
         })
         .catch((err)=>{
             console.log(err);
@@ -111,4 +111,7 @@ const mapStateToProps = (state) => {
 
 const mapDispatchToProps = {loginUser}
 
-export default connect(mapStateToProps, mapDispatchToProps)(Login)
+export default connect(mapStateToProps, mapDispatchToProps)
+(
+    compose(withRouter)(Login)
+)
