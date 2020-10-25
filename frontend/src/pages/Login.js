@@ -8,6 +8,8 @@ import { loginUser } from '../redux/Actions';
 import { ButtonGroup, Button, Col, Row, Form } from 'react-bootstrap'
 import { Formik } from 'formik'
 
+import { createBrowserHistory } from 'history'
+
 class Login extends React.Component {
     constructor(props) {
         super(props);
@@ -36,8 +38,9 @@ class Login extends React.Component {
             password: values.password
         })
         .then((res)=>{
-            console.log("logging ing");
             this.props.loginUser(values.username)
+            const history = createBrowserHistory()
+            history.push("/")
         })
         .catch((err)=>{
             console.log(err);
