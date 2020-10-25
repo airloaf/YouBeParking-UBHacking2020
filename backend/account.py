@@ -32,6 +32,7 @@ offer = api.parser()
 offer.add_argument('username', type=str, required=True, help="username of person offering spot")
 offer.add_argument('lot', type=str, required=True, help="parking lot requested")
 offer.add_argument('description', type=str, required=True, help="parking lot description")
+offer.add_argument('time', type=str, required=True, help="time of departure from spot")
 
 # api for successful offer
 offerSuccess = api.parser()
@@ -96,7 +97,7 @@ class MakeRequest(Resource):
             return{
                 "result" : "Error"
             }
-        user.credits -= 1
+        # user.credits -= 1
         db.session.commit()
 
         if offer.offer_id == offer_id:
@@ -140,11 +141,13 @@ class Login(Resource):
 class MakeOffer(Resource):
     def post(self):
         args = offer.parse_args()
+        username = args['username']
         lot = args['lot']
         description = args ["description"]
-        username = args['username']
+        time = args ["time"]
+        
         try:
-            off = Offer(username=username, lot=lot, description=description)
+            off = Offer(username=username, lot=lot, description=description, time=time)
             db.session.add(off)
             db.session.commit()
             return {

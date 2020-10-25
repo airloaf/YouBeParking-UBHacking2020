@@ -77,12 +77,15 @@ class Offer(db.Model):
     username = db.Column(db.String(100))
     lot = db.Column(db.String(30), unique=False, nullable=False)
     description = db.Column(db.String(280), unique=False, nullable=False)
+    time = db.Column(db.String(280), unique=False, nullable=False)
+
     def toObject(self):
         return {
             "offer_id": self.offer_id,
             "username": self.username,
             "lot": self.lot,
-            "description": self.description
+            "description": self.description,
+            "time": self.time
         }
 
     def __repr__(self):
