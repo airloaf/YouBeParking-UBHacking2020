@@ -2,6 +2,7 @@ from flask import Flask
 from flask_restx import Api, Resource
 from db import db, init_db
 from account import init_bcrypt
+from waitress import serve
 
 
 from account import api as account_api
@@ -19,5 +20,7 @@ with app.app_context():
 # add apis
 api.add_namespace(account_api)
 
+
 if __name__ == '__main__':
-    app.run(debug=True)
+    #app.run(debug=True)
+    serve(app, port=5000)
